@@ -1,0 +1,98 @@
+.main-nav-logo-image {
+  width: 200px;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+
+.main-nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.main-nav-item {
+  margin-right: 0.5rem;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #ccc;
+  padding: 2rem 0 1.5rem;
+}
+
+.footer-text {
+  margin: 0;
+  padding: 0;
+}
+
+.bannere-image {
+  background-position: 0 -50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  position: relative;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.hero-content {
+  position: absolute;
+  top: 110px;
+  right: 50px;
+  width: 300px;
+  margin: 2rem;
+  background: white;
+  padding: 2rem;
+  text-align: left;
+}
+
+.subtitle {
+  font-weight: bold;
+  font-size: 25px;
+  margin: 0;
+}
+
+.text {
+  font-size: 19px;
+  margin-bottom: 0px;
+}
+
+.features {
+  display: flex;
+  flex-direction: row;
+}
+
+.feature-item {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2.5rem;
+}
+
+.feature-icon {
+  width: 100px;
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+body {
+  font-family: "Avenir", "Helvetica", "Arial", sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}/*# sourceMappingURL=main.css.map */

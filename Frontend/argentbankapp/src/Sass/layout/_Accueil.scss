@@ -1,0 +1,46 @@
+.bannere-image {
+  background-position: 0 -50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  position: relative;
+  width: 100%;
+  object-fit: cover;
+}
+.hero-content {
+  position: absolute;
+  top: 110px;
+  right: 50px;
+  width: 300px;
+  margin: 2rem;
+  background: white;
+  padding: 2rem;
+  text-align: left;
+}
+.subtitle {
+  font-weight: bold;
+  font-size: 25px;
+  margin: 0;
+}
+.text {
+  font-size: 19px;
+  margin-bottom: 0px;
+}
+.features {
+  display: flex;
+  flex-direction: row;
+}
+.feature-item {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2.5rem;
+}
+.feature-icon {
+  width: 100px;
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+  padding: 1rem;
+}
