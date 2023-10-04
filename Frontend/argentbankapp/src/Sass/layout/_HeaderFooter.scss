@@ -16,8 +16,15 @@
 .main-nav-item {
   margin-right: 0.5rem;
 }
+.main-nav a:hover {
+  text-decoration: underline;
+}
 .fa {
   margin-right: 5px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
 }
 //Footer
 .footer {

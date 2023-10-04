@@ -1,5 +1,6 @@
 @import "./Sass/layout/_HeaderFooter";
 @import "./Sass/layout/_Accueil";
+@import "./Sass/layout/_Login";
 
 body {
   font-family: "Avenir", "Helvetica", "Arial", sans-serif;
@@ -7,4 +8,5 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  text-align: center;
 }
