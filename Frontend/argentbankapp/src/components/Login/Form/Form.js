@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "../../Button/Button";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -57,9 +58,7 @@ function LoginForm() {
         <label htmlFor="remember-me">Remember me</label>
       </div>
       <Link to="/User">
-        <button className="sign-in-button" type="submit">
-          Sign In
-        </button>
+        <Button text="Sign In" className="sign-in-button" type="submit" />
       </Link>
     </form>
   );

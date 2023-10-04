@@ -4,6 +4,7 @@ import Headers from "./components/Headers.js";
 import Accueil from "./components/Accueil/Accueil.js";
 import Footer from "./components/Footer.js";
 import Login from "./components/Login/Login.js";
+import User from "./components/User/User.js";
 
 // Composant principal App
 function App() {
@@ -16,6 +17,8 @@ function App() {
         <Route path="/" element={<Accueil />} />
         {/* Route pour la page Login */}
         <Route path="/Login" element={<Login />} />
+        {/* Route pour la page User */}
+        <Route path="/User" element={<User />} />
       </Routes>
       <Footer />
     </div>

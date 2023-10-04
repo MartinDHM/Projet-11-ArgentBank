@@ -33,6 +33,7 @@
 .input-remember label {
   margin-left: 0.25rem;
 }
+
 .sign-in-button {
   display: block;
   width: 100%;
@@ -43,4 +44,14 @@
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+}
+.icon-login {
+  margin-left: 7pc;
+}
+.Signin-text {
+  display: flex;
+  justify-content: center;
+}
+a {
+  color: white;
 }
