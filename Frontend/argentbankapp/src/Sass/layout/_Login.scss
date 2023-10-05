@@ -1,5 +1,6 @@
 .bg-dark {
   background-color: #12002b;
+  height: 84vh;
 }
 .main {
   flex: 1;
@@ -12,6 +13,10 @@
   margin-top: 0px;
   margin-top: 3rem;
   padding: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input-wrapper {
@@ -36,14 +41,15 @@
 
 .sign-in-button {
   display: block;
-  width: 100%;
+  width: 15pc;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
-  margin-top: 1rem;
+  margin-top: 0;
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  text-decoration: none;
 }
 .icon-login {
   margin-left: 7pc;
@@ -51,6 +57,7 @@
 .Signin-text {
   display: flex;
   justify-content: center;
+  margin: 0;
 }
 a {
   color: white;
