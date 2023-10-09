@@ -19,16 +19,25 @@
   margin-right: 0.5rem;
 }
 
-.main-nav a:hover {
-  text-decoration: underline;
-}
-
-.fa {
+.main-nav a .fa {
   margin-right: 5px;
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
+}
+
+.logbutton {
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 15px;
+}
+
+.logbutton:hover {
+  -webkit-text-decoration: underline 2px black;
+          text-decoration: underline 2px black;
 }
 
 .footer {
