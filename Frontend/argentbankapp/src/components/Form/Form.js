@@ -5,11 +5,12 @@ import Button from "../Button/Button";
 import { signIn } from "../../Redux/store.js"; // Importez l'action signIn depuis votre Redux store
 
 function Form() {
+  //Initialisation de l'état local du composant
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate(); // Utilise useNavigate pour obtenir une fonction de navigation.
+  const dispatch = useDispatch(); // Utilise useDispatch pour obtenir la fonction dispatch de Redux.
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ function Form() {
 
       const data = await response.json();
       const token = data.body.token;
-      localStorage.setItem("token", token); // Stockez le token directement, pas besoin de JSON.stringify
+      localStorage.setItem("token", token); // Stockez le token
       dispatch(signIn(token)); // Dispatchez l'action signIn avec le token
       navigate("/user");
     } catch (error) {
