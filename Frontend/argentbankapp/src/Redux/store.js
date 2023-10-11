@@ -12,6 +12,9 @@ const signInSlice = createSlice({
       state.token = "";
       // supprime le token
     },
+    setUserDatas: (state, action) => {
+      state.userData = action.payload; // Stockez les données de l'utilisateur dans le store
+    },
   },
 });
 
@@ -21,6 +24,6 @@ const store = configureStore({
   },
 });
 
-export const { signIn, signOut } = signInSlice.actions; // Exportez les actions signIn et signOut
+export const { signIn, signOut, setUserDatas } = signInSlice.actions; // Exportez les actions 
 
 export default store;

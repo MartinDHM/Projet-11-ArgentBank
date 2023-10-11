@@ -36,7 +36,7 @@ function Form() {
       const token = data.body.token;
       localStorage.setItem("token", token); // Stockez le token
       dispatch(signIn(token)); // Dispatchez l'action signIn avec le token
-      navigate("/user");
+      navigate("/profile");
     } catch (error) {
       console.error("Une erreur s'est produite :", error);
       setError("Une erreur s'est produite lors de la connexion.");
@@ -46,7 +46,7 @@ function Form() {
   return (
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
-      <h1>Sign In</h1>
+      <h2>Sign In</h2>
       <form onSubmit={handleSignIn}>
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>

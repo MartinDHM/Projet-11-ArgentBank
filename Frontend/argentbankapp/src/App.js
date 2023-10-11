@@ -9,7 +9,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector.js";
 
 // Composant principal App
 function App() {
-  const isLoggedIn = useSelector((state) => state.signIn.token !== "");
+  const isLoggedIn = useSelector((state) => state.setUserDatas !== "");
   return (
     <div className="App">
       {/* Configuration des routes */}
@@ -18,10 +18,10 @@ function App() {
         {/* Route pour la page d'accueil */}
         <Route path="/" element={<Accueil />} />
         {/* Route pour la page Login */}
-        <Route path="/Login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         {/* Route pour la page User */}
         <Route
-          path="/User"
+          path="/profile"
           element={isLoggedIn ? <User /> : <Navigate to="/Login" />}
         />
       </Routes>

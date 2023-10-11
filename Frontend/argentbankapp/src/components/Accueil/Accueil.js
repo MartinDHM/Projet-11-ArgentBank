@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../../assets/images/bank-tree.jpeg";
+
 import Promote from "../Promote/Promote";
 import Feature from "../Feature/Feature";
 import chat from "../../assets/images/icon-chat.png";
@@ -9,9 +9,7 @@ import security from "../../assets/images/icon-security.png";
 function Accueil() {
   return (
     <section>
-      <div className="hero">
-        <img className="bannere-image" src={banner} alt="Argent Bank Logo" />
-      </div>
+      <div className="hero"></div>
       <Promote
         subtitle1="No fees."
         subtitle2="No minimum deposit."
