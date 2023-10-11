@@ -11,15 +11,15 @@ function User() {
   return (
     <section className="main bg-dark">
       <div className="account-name">
-        <div className="user-name">
+        <div className="header">
           <h1>Welcome back</h1>
           <h2 className="Name-account">
             {userData
               ? `${userData.body.firstName} ${userData.body.lastName}`
               : ""}
           </h2>
+          <Button text="Edit Name" className="edit-button" type="submit" />
         </div>
-        <Button text="Edit Name" className="edit-button" type="submit" />
       </div>
       <div className="account-section">
         <h2 className="sr-only">Accounts</h2>

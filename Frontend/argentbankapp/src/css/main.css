@@ -289,7 +289,7 @@ h1 {
   color: white;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 720px) and (max-width: 1230px) {
   .account {
     flex-direction: row;
   }
@@ -299,7 +299,10 @@ h1 {
   }
 
   .transaction-button {
-    width: 200px;
+    width: 129px;
+    margin-left: 78%;
+    margin-top: -6%;
+    margin-bottom: 1%;
   }
 }
 @media (min-width: 720px) {
@@ -307,5 +310,12 @@ h1 {
     background-color: #12002b;
     padding-bottom: 5rem;
     padding-top: 0.5rem;
+  }
+}
+@media (min-width: 1231px) {
+  .transaction-button {
+    width: 15%;
+    margin-left: 83%;
+    margin-top: -4%;
   }
 }
