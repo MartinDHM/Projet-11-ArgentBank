@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; // Importez useDispatch
 import { setUserDatas } from "../../Redux/store"; // Assurez-vous que le chemin d'importation est correct
-import Button from "../Button/Button";
 import AccountInfo from "../Account/AccountInfo";
 import EditButton from "../Edit-button/edit";
 

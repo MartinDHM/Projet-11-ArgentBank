@@ -22,7 +22,7 @@ function App() {
         {/* Route pour la page User */}
         <Route
           path="/profile"
-          element={isLoggedIn ? <User /> : <Navigate to="/Login" />}
+          element={isLoggedIn ? <User /> : <Navigate to="/login" />}
         />
       </Routes>
       <Footer />
