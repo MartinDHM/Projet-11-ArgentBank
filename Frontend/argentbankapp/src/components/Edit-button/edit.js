@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDatas } from "../../Redux/store";
+import { editUserData } from "../../Redux/store";
+import callAPI from "../../Api/callApi";
 
 function EditButton({ userData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -8,6 +9,7 @@ function EditButton({ userData }) {
     userData?.body?.userName || ""
   );
   const token = useSelector((state) => state.signIn.token);
+  const userProfile = useSelector((state) => state.userProfile);
   const dispatch = useDispatch();
 
   const openModal = () => {
@@ -20,44 +22,29 @@ function EditButton({ userData }) {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/v1/user/profile",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            username: newUserName,
-          }),
-        }
-      );
+      // Requête pour envoyer le nouveau nom d'utilisateur
+      const response = await callAPI("putUserName", token, {
+        userName: newUserName,
+      });
 
-      if (!response.ok) {
-        throw new Error("Erreur de connexion");
-      }
+      // Appel de l'action pour stocker le nouveau userName
+      dispatch(editUserData(newUserName));
 
-      // Mettez ici la logique pour traiter la réponse de l'API
-      const data = await response.json();
-      console.log("Réponse de l'API :", data);
+      closeModal(); // Vous devriez probablement appeler closeModal ici pour fermer la modal après avoir enregistré les modifications
 
-      // Mettez à jour le nom d'utilisateur dans Redux
-      dispatch(
-        setUserDatas({
-          ...userData,
-          body: { ...userData.body, userName: newUserName },
-        })
-      );
-      closeModal();
+      return response;
     } catch (error) {
-      console.error("Une erreur s'est produite :", error);
+      console.error(
+        "Erreur lors de la mise à jour du nom d'utilisateur :",
+        error
+      );
     }
   };
 
+  // Utilisation de useEffect pour mettre à jour newUserName lorsque userProfile.userName change
   useEffect(() => {
-    setNewUserName(userData?.body?.userName || "");
-  }, [userData]);
+    setNewUserName(userProfile.userName);
+  }, [userProfile.userName]);
 
   return (
     <>
@@ -73,7 +60,7 @@ function EditButton({ userData }) {
                 type="text"
                 id="userName"
                 className="input-edit"
-                defaultValue={userData.body.userName}
+                value={newUserName}
                 onChange={(e) => setNewUserName(e.target.value)}
               />
             </div>
@@ -83,7 +70,7 @@ function EditButton({ userData }) {
                 type="text"
                 id="firstName"
                 className="input-edit"
-                value={userData.body.firstName}
+                value={userProfile.firstName}
                 readOnly
               />
             </div>
@@ -93,8 +80,8 @@ function EditButton({ userData }) {
                 type="text"
                 id="lastName"
                 className="input-edit"
-                value={userData.body.lastName}
-                readOnly
+                value={userProfile.lastName}
+                readOnly // I corrected this line to use userProfile.lastName
               />
             </div>
             <div className="button-container">

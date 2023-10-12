@@ -1,50 +1,32 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux"; // Importez useDispatch
-import { setUserDatas } from "../../Redux/store"; // Assurez-vous que le chemin d'importation est correct
+import { useSelector, useDispatch } from "react-redux";
+import { getUserData } from "../../Redux/store";
 import AccountInfo from "../Account/AccountInfo";
 import EditButton from "../Edit-button/edit";
+import callAPI from "../../Api/callApi";
 
 function User() {
-  const userData = useSelector((state) => state.signIn.userData); // Utilisez useSelector pour récupérer les données de l'utilisateur
-  const dispatch = useDispatch(); // Utilisez useDispatch pour obtenir la fonction dispatch de Redux
+  const token = useSelector((state) => state.signIn.token);
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userProfile); // Renommé userProfile en userData
 
   useEffect(() => {
-    async function fetchData() {
+    const getUserProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-          console.error("Token non trouvé dans le stockage local");
-          return;
-        }
-
-        const response = await fetch(
-          "http://localhost:3001/api/v1/user/profile",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.ok) {
-          const userData = await response.json();
-          dispatch(setUserDatas(userData)); // Stockez les données de l'utilisateur dans le store
-        } else {
-          console.error("Erreur lors de la récupération des données de l'API");
-        }
+        // Requête pour récupérer le profil de l'utilisateur
+        const response = await callAPI("getProfile", token, {});
+        const userData = response.body;
+        // Appel de l'action getUserData qui stocke le profil utilisateur dans le state
+        dispatch(getUserData(userData));
       } catch (error) {
-        console.error("Une erreur s'est produite :", error);
+        console.error(
+          "Erreur lors de la récupération du profil de l'utilisateur :",
+          error
+        );
       }
-    }
-
-    fetchData();
-  }, [dispatch]);
-
-  console.log(userData);
+    };
+    getUserProfile();
+  }, [token, dispatch]);
 
   return (
     <section className="main bg-dark">
@@ -52,9 +34,7 @@ function User() {
         <div className="header">
           <h1>Welcome back</h1>
           <h2 className="Name-account">
-            {userData
-              ? `${userData.body.firstName} ${userData.body.lastName}` // Modifiez l'accès aux propriétés
-              : ""}
+            {userData ? `${userData.firstName} ${userData.lastName}` : ""}
           </h2>
           <EditButton userData={userData} />
         </div>

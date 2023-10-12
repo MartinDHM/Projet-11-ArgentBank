@@ -1,16 +1,16 @@
 import React from "react";
 import logo from "../assets/images/argentBankLogo.png";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux"; // permet de lire l'état du store Redux et de dispatcher des actions.
-import { signOut } from "../Redux/store"; // Importez les fonction  de votre Redux
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../Redux/store";
 
 function Headers() {
-  const isLoggedIn = useSelector((state) => state.signIn.token !== ""); // Utilise useSelector pour lire l'état Redux. Il vérifie si la propriété token dans l'état signIn n'est pas une chaîne vide
-  const dispatch = useDispatch(); // permettra de dispatcher des actions Redux
-  const userData = useSelector((state) => state.signIn.userData);
+  const isLoggedIn = useSelector((state) => state.signIn.token !== "");
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userProfile); // Utilisez userProfile pour accéder aux données utilisateur
 
   const handleLogout = () => {
-    dispatch(signOut()); // utilise dispatch pour appeler la fonction signOut importée depuis le store Redux
+    dispatch(signOut());
   };
 
   return (
@@ -30,16 +30,16 @@ function Headers() {
                 <i className="usericon fa fa-user-circle "></i>
 
                 {userData
-                  ? `${userData.body.userName}` // Modifiez l'accès aux propriétés
+                  ? `${userData.userName}` // Accédez directement à userName
                   : ""}
                 <button className="logbutton" onClick={handleLogout}>
-                  <i className=" fa fa-sign-out"></i> Sign out
+                  <i className="fa fa-sign-out"></i> Sign out
                 </button>
               </div>
             </Link>
           ) : (
             <Link to="/Login">
-              <button className="logbutton" onClick={handleLogout}>
+              <button className="logbutton">
                 <i className="fa fa-user-circle"></i> Sign In
               </button>
             </Link>
