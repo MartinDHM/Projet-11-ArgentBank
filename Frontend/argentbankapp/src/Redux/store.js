@@ -2,11 +2,11 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const signInSlice = createSlice({
   name: "signIn",
-  initialState: { token: "" },
+  initialState: { token: "", userData: null }, // Ajoutez une propriété "userData" à l'état initial
   reducers: {
     signIn: (state, action) => {
       state.token = action.payload;
-      // recupère + stocke le token
+      // récupère + stocke le token
     },
     signOut: (state) => {
       state.token = "";
@@ -24,6 +24,7 @@ const store = configureStore({
   },
 });
 
-export const { signIn, signOut, setUserDatas } = signInSlice.actions; // Exportez les actions 
+// Exportez les actions
+export const { signIn, signOut, setUserDatas } = signInSlice.actions;
 
 export default store;
