@@ -393,3 +393,7 @@ h1 {
   font-size: 18px;
   text-decoration: none;
 }
+.Username-position {
+  display: flex;
+  flex-direction: row;
+}
