@@ -6,6 +6,7 @@ import Footer from "./components/Footer.js";
 import Login from "./components/Login/Login.js";
 import User from "./components/User/User.js";
 import { useSelector } from "react-redux/es/hooks/useSelector.js";
+import Error from "./components/Error/Error.js";
 
 // Composant principal App
 function App() {
@@ -24,6 +25,8 @@ function App() {
           path="/profile"
           element={isLoggedIn ? <User /> : <Navigate to="/login" />}
         />
+        {/* Route par défaut pour les erreurs */}
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </div>

@@ -54,6 +54,8 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+  flex-direction: row;
+  display: flex;
 }
 
 .main-nav-item:hover {
@@ -203,7 +205,8 @@ body {
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
-  width: 80%;
+  width: 100%;
+  margin-left: 0;
 }
 
 .footer {
@@ -365,4 +368,28 @@ h1 {
 .input-edit {
   margin-left: 13px;
   margin-bottom: 15px;
+}
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.notfound-title {
+  color: black;
+  font-size: 288px;
+  margin-top: 50px;
+  margin-bottom: 101px;
+  text-align: center;
+}
+.notfound-oups {
+  color: black;
+  font-size: 26px;
+  margin: 34px 0 24px 38px;
+}
+.back-link {
+  color: black;
+  margin-left: 44px;
+  font-size: 18px;
+  text-decoration: none;
 }
