@@ -2,43 +2,42 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Button from "../Button/Button";
-import { signIn } from "../../Redux/store.js"; // Importez l'action signIn depuis votre Redux store
+import { signIn } from "../../Redux/store.js";
+import callAPI from "../../Api/callApi";
 
 function Form() {
-  //Initialisation de l'état local du composant
+  // Initialisation de l'état local du composant
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Utilise useNavigate pour obtenir une fonction de navigation.
-  const dispatch = useDispatch(); // Utilise useDispatch pour obtenir la fonction dispatch de Redux.
+  const navigate = useNavigate(); // Fonction de navigation
+  const dispatch = useDispatch(); // Fonnction Redux pour dispatcher des actions
 
   const handleSignIn = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+      // Effectue la requête de connexion à l'API et récupère le token
+      const response = await callAPI("getToken", null, {
+        email: email,
+        password: password,
       });
 
-      if (!response.ok) {
-        throw new Error("Erreur de connexion");
-      }
+      // Récupère le token à partir de la réponse API
+      const token = response.body.token;
 
-      const data = await response.json();
-      const token = data.body.token;
-      localStorage.setItem("token", token); // Stockez le token
-      dispatch(signIn(token)); // Dispatchez l'action signIn avec le token
+      // Stocke le token dans le localStorage pour une utilisation ultérieure
+      localStorage.setItem("token", token);
+
+      // Dispatche l'action signIn avec le token
+      dispatch(signIn(token));
+
+      // Navigue vers la page de profil ou effectue d'autres actions nécessaires
       navigate("/profile");
     } catch (error) {
       console.error("Une erreur s'est produite :", error);
+
+      // Affiche un message d'erreur en cas d'échec de la connexion
       setError("Une erreur s'est produite lors de la connexion.");
     }
   };
