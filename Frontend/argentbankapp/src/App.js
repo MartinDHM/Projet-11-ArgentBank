@@ -5,12 +5,14 @@ import Accueil from "./components/Accueil/Accueil.js";
 import Footer from "./components/Footer.js";
 import Login from "./components/Login/Login.js";
 import User from "./components/User/User.js";
-import { useSelector } from "react-redux/es/hooks/useSelector.js";
+import { useSelector } from "react-redux";
 import Error from "./components/Error/Error.js";
 
 // Composant principal App
 function App() {
-  const isLoggedIn = useSelector((state) => state.setUserDatas !== "");
+  const isLoggedIn = useSelector((state) => state.signIn.islogin);
+  const userToken = useSelector((state) => state.signIn.token);
+
   return (
     <div className="App">
       {/* Configuration des routes */}
@@ -23,7 +25,9 @@ function App() {
         {/* Route pour la page User */}
         <Route
           path="/profile"
-          element={isLoggedIn ? <User /> : <Navigate to="/login" />}
+          element={
+            isLoggedIn && userToken !== "" ? <User /> : <Navigate to="/login" />
+          }
         />
         {/* Route par défaut pour les erreurs */}
         <Route path="*" element={<Error />} />
