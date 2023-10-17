@@ -2,9 +2,9 @@ import React from "react";
 
 import Promote from "../Promote/Promote";
 import Feature from "../Feature/Feature";
-import chat from "../../assets/images/icon-chat.png";
-import money from "../../assets/images/icon-money.png";
-import security from "../../assets/images/icon-security.png";
+import chat from "../../assets/images/icon-chat.webp";
+import money from "../../assets/images/icon-money.webp";
+import security from "../../assets/images/icon-security.webp";
 
 function Accueil() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/images/argentBankLogo.png";
+import logo from "../assets/images/argentBankLogo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "../Redux/store";
