@@ -295,6 +295,9 @@ body {
 h1 {
   color: white;
 }
+a {
+  text-decoration: none;
+}
 
 @media (min-width: 720px) and (max-width: 1230px) {
   .account {
@@ -392,6 +395,9 @@ h1 {
   margin-left: 44px;
   font-size: 18px;
   text-decoration: none;
+}
+.back-link:hover {
+  border-bottom: 1px black solid;
 }
 .Username-position {
   display: flex;
