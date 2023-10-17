@@ -9,8 +9,9 @@ export default function NotFound() {
       <>
         <div className="notfound-container">
           {/* Titre de la page 404 */}
-          <img src={Img404} alt="Error 404" />
+          <img className="error-image" src={Img404} alt="Error 404" />
           {/* Message d'erreur */}
+          <p className="notfound-title">404 Error</p>
           <p className="notfound-oups">Oups ! Une erreur est survenue.</p>
           {/* Lien de retour vers la page d'accueil */}
           <Link to="/">
