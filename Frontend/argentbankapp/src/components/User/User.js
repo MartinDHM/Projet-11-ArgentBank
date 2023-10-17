@@ -8,7 +8,7 @@ import callAPI from "../../Api/callApi";
 function User() {
   const token = useSelector((state) => state.signIn.token);
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userProfile); // Renommé userProfile en userData
+  const userData = useSelector((state) => state.userProfile);
 
   useEffect(() => {
     const getUserProfile = async () => {
