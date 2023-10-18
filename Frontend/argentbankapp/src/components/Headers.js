@@ -1,11 +1,12 @@
-import React from "react";
+// Headers.js
+import React, { useEffect } from "react";
 import logo from "../assets/images/argentBankLogo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signOut } from "../Redux/store";
+import { signOut, signIn } from "../Redux/store";
 
 function Headers() {
-  const isLoggedIn = useSelector((state) => state.signIn.token !== "");
+  const isLoggedIn = useSelector((state) => state.signIn.islogin);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userProfile);
   const navigate = useNavigate();
@@ -14,6 +15,30 @@ function Headers() {
     dispatch(signOut());
     navigate("/");
   };
+
+  // Vérifie la validité du token au chargement de la page
+  useEffect(() => {
+    const checkTokenValidity = () => {
+      const token = localStorage.getItem("token");
+      const tokenExpiration = localStorage.getItem("tokenExpiration");
+
+      if (token && tokenExpiration) {
+        const currentTime = new Date().getTime();
+
+        if (currentTime < tokenExpiration) {
+          // Le token est valide, l'utilisateur est connecté
+          dispatch(signIn(token));
+        } else {
+          // Le token a expiré, supprimez-le du localStorage et déconnectez l'utilisateur
+          localStorage.removeItem("token");
+          localStorage.removeItem("tokenExpiration");
+          dispatch(signOut());
+        }
+      }
+    };
+
+    checkTokenValidity();
+  }, [dispatch]);
 
   return (
     <header className="headers">
@@ -30,9 +55,7 @@ function Headers() {
             <div>
               <i className="usericon fa fa-user-circle "></i>
 
-              {userData
-                ? userData.userName // Accédez directement à userName
-                : ""}
+              {userData ? userData.userName : ""}
             </div>
           ) : null}
           {isLoggedIn ? (

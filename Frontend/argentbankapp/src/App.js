@@ -26,7 +26,11 @@ function App() {
         <Route
           path="/profile"
           element={
-            isLoggedIn && userToken !== "" ? <User /> : <Navigate to="/login" />
+            isLoggedIn && userToken !== "" ? (
+              <User />
+            ) : (
+              <Navigate to="/profile" />
+            )
           }
         />
         {/* Route par défaut pour les erreurs */}

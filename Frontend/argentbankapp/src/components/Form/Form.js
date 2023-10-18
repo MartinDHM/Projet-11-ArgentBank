@@ -1,8 +1,9 @@
+// Form.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Button from "../Button/Button";
-import { signIn } from "../../Redux/store.js";
+import { signIn } from "../../Redux/store";
 import callAPI from "../../Api/callApi";
 
 function Form() {
@@ -11,7 +12,7 @@ function Form() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Fonction de navigation
-  const dispatch = useDispatch(); // Fonnction Redux pour dispatcher des actions
+  const dispatch = useDispatch(); // Fonction Redux pour dispatcher des actions
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -26,8 +27,12 @@ function Form() {
       // Récupère le token à partir de la réponse API
       const token = response.body.token;
 
+      // Calcule la date d'expiration (1 heure plus tard)
+      const expirationTime = new Date().getTime() + 60 * 60 * 1000;
+
       // Stocke le token dans le localStorage pour une utilisation ultérieure
       localStorage.setItem("token", token);
+      localStorage.setItem("tokenExpiration", expirationTime);
 
       // Dispatche l'action signIn avec le token
       dispatch(signIn(token));
