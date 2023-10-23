@@ -61,9 +61,8 @@ function Headers() {
           {isLoggedIn ? (
             <div>
               <i className="usericon fa fa-user-circle "></i>
-              <Link to={`/profile/${userData.userName}`}>
-                {userData ? userData.userName : ""}
-              </Link>
+              {/*Rediriger vers la page de l'utilisateur lorsqu'on clique sur le nom d'utilisateur*/}
+              <Link to={`/profile`}>{userData ? userData.userName : ""}</Link>
             </div>
           ) : null}
           {isLoggedIn ? (
