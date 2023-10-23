@@ -1,4 +1,3 @@
-// Headers.js
 import React, { useEffect } from "react";
 import logo from "../assets/images/argentBankLogo.webp";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,15 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut, signIn } from "../Redux/store";
 
 function Headers() {
-  const isLoggedIn = useSelector((state) => state.signIn.islogin);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userProfile);
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch(signOut());
-    navigate("/");
-  };
 
   // Vérifie la validité du token au chargement de la page
   useEffect(() => {
@@ -34,11 +27,24 @@ function Headers() {
           localStorage.removeItem("tokenExpiration");
           dispatch(signOut());
         }
+      } else {
+        // Si aucun token n'est présent, l'utilisateur est déconnecté
+        dispatch(signOut());
       }
     };
 
     checkTokenValidity();
   }, [dispatch]);
+
+  const isLoggedIn = useSelector((state) => state.signIn.islogin);
+
+  const handleLogout = () => {
+    // Supprimez le token et la date d'expiration du localStorage lors de la déconnexion
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenExpiration");
+    dispatch(signOut());
+    navigate("/");
+  };
 
   return (
     <header className="headers">
@@ -54,8 +60,9 @@ function Headers() {
           {isLoggedIn ? (
             <div>
               <i className="usericon fa fa-user-circle "></i>
-
-              {userData ? userData.userName : ""}
+              <Link to={`/profile/${userData.userName}`}>
+                {userData ? userData.userName : ""}
+              </Link>
             </div>
           ) : null}
           {isLoggedIn ? (
