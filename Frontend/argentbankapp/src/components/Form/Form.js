@@ -1,10 +1,10 @@
 // Form.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import Button from "../Button/Button";
-import { signIn } from "../../Redux/store";
-import callAPI from "../../Api/callApi";
+import { useNavigate } from "react-router-dom"; // Utilisé pour la navigation
+import { useDispatch } from "react-redux"; // Utilisé pour dispatcher des actions Redux
+import Button from "../Button/Button"; // Composant de bouton
+import { signIn } from "../../Redux/store"; // Action Redux pour la connexion
+import callAPI from "../../Api/callApi"; // Fonction pour effectuer des appels à l'API
 
 function Form() {
   // Initialisation de l'état local du composant
@@ -14,6 +14,7 @@ function Form() {
   const navigate = useNavigate(); // Fonction de navigation
   const dispatch = useDispatch(); // Fonction Redux pour dispatcher des actions
 
+  // Fonction de gestion de la connexion
   const handleSignIn = async (e) => {
     e.preventDefault();
 
@@ -34,7 +35,7 @@ function Form() {
       localStorage.setItem("token", token);
       localStorage.setItem("tokenExpiration", expirationTime);
 
-      // Dispatche l'action signIn avec le token
+      // Dispatche l'action signIn avec le token pour l'authentification
       dispatch(signIn(token));
 
       // Navigue vers la page de profil ou effectue d'autres actions nécessaires

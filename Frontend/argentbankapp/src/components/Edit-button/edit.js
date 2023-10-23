@@ -1,36 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserData } from "../../Redux/store";
-import callAPI from "../../Api/callApi";
+import { editUserData } from "../../Redux/store"; // Importe une action Redux
+import callAPI from "../../Api/callApi"; // Importe la fonction pour effectuer des appels à l'API
 
 function EditButton({ userData }) {
+  // État local pour gérer l'ouverture et la fermeture de la modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // État local pour stocker le nouveau nom d'utilisateur
   const [newUserName, setNewUserName] = useState(
     userData?.body?.userName || ""
   );
+  // Récupération du jeton d'authentification et du profil utilisateur depuis le store Redux
   const token = useSelector((state) => state.signIn.token);
   const userProfile = useSelector((state) => state.userProfile);
+  // Dispatch Redux pour mettre à jour les données utilisateur
   const dispatch = useDispatch();
 
+  // Fonction pour ouvrir la modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
+  // Fonction pour fermer la modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  // Fonction pour gérer la sauvegarde des modifications du nom d'utilisateur
   const handleSave = async () => {
     try {
-      // Requête pour envoyer le nouveau nom d'utilisateur
+      // Requête pour envoyer le nouveau nom d'utilisateur à l'API
       const response = await callAPI("putUserName", token, {
         userName: newUserName,
       });
 
-      // Appel de l'action pour stocker le nouveau userName
+      // Appel de l'action Redux pour stocker le nouveau nom d'utilisateur
       dispatch(editUserData(newUserName));
 
-      closeModal(); // Vous devriez probablement appeler closeModal ici pour fermer la modal après avoir enregistré les modifications
+      // Ferme la modal après avoir enregistré les modifications
+      closeModal();
 
       return response;
     } catch (error) {
@@ -48,11 +56,13 @@ function EditButton({ userData }) {
 
   return (
     <>
+      {/* Bouton pour ouvrir la modal d'édition */}
       <button className="edit-button" onClick={openModal}>
         Edit Name
       </button>
       {isModalOpen && (
         <div className="edit-section">
+          {/* Formulaire d'édition du nom d'utilisateur */}
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="input-wrapper">
               <label htmlFor="userName">User name:</label>
@@ -81,10 +91,11 @@ function EditButton({ userData }) {
                 id="lastName"
                 className="input-edit"
                 value={userProfile.lastName}
-                readOnly // I corrected this line to use userProfile.lastName
+                readOnly // Correction : utilise userProfile.lastName
               />
             </div>
             <div className="button-container">
+              {/* Bouton pour sauvegarder les modifications */}
               <button
                 type="submit"
                 onClick={handleSave}
@@ -92,6 +103,7 @@ function EditButton({ userData }) {
               >
                 Save
               </button>
+              {/* Bouton pour annuler et fermer la modal */}
               <button className="interaction-button" onClick={closeModal}>
                 Cancel
               </button>

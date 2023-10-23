@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Création d'une tranche (slice) pour gérer l'authentification (signIn)
 const signInSlice = createSlice({
   name: "signIn",
   initialState: {
-    token: "",
-    islogin: false,
+    token: "", // Token d'authentification initial vide
+    islogin: false, // Statut d'authentification initial à faux (déconnecté)
   },
   reducers: {
     signIn: (state, action) => {
-      state.token = action.payload;
-      state.islogin = true;
-      // recupère + stocke le token
+      state.token = action.payload; // Stocke le token fourni dans l'action
+      state.islogin = true; // Définit le statut d'authentification à vrai (connecté)
     },
     signOut: (state) => {
-      state.token = "";
-      state.islogin = false;
-      // supprime le token
+      state.token = ""; // Supprime le token en le rendant vide
+      state.islogin = false; // Définit le statut d'authentification à faux (déconnecté)
     },
   },
 });

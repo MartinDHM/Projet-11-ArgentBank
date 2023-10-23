@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import logo from "../assets/images/argentBankLogo.webp";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { signOut, signIn } from "../Redux/store";
+import logo from "../assets/images/argentBankLogo.webp"; // Importation du logo
+import { Link, useNavigate } from "react-router-dom"; // Utilisé pour gérer les liens et la navigation
+import { useSelector, useDispatch } from "react-redux"; // Utilisé pour accéder aux données dans le store Redux et dispatcher des actions
+import { signOut, signIn } from "../Redux/store"; // Actions Redux pour la déconnexion et l'authentification
 
 function Headers() {
   const dispatch = useDispatch();
@@ -47,6 +47,7 @@ function Headers() {
   };
 
   return (
+    // Affichage de la section d'en-tête de la page
     <header className="headers">
       <nav className="main-nav">
         <Link to="/" className="main-nav-logo">

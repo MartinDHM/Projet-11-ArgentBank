@@ -1,6 +1,7 @@
+// Définition de l'URL de base de l'API
 const baseURL = "http://localhost:3001/api/v1";
 
-// Les infos nécessaires pour chaque requête: url, méthode,authentification
+// Les informations nécessaires pour chaque type de requête : URL, méthode HTTP, authentification requise
 const fetchInfo = {
   getToken: {
     url: "/user/login",
@@ -19,14 +20,18 @@ const fetchInfo = {
   },
 };
 
-//construction d'une requête-type qui prend en paramètres les infos (url, méthode, auth), le token si nécessaire, et les données à ajouter au body
+// Fonction pour effectuer des requêtes API 
 export const callAPI = async (infos, token, data = {}) => {
+  // Récupère les informations spécifiques à la requête à partir de fetchInfo
   const callAPIData = fetchInfo[infos];
   if (!callAPIData) {
-    console.error("Erreur à l'appel de connexion à l'API");
+    console.error(
+      "Erreur à l'appel de connexion à l'API : Type de requête non reconnu"
+    );
     return;
   }
 
+  // Définit les en-têtes de la requête, y compris le jeton d'authentification si nécessaire
   const headers = { "Content-Type": "application/json" };
 
   if (callAPIData.auth) {
@@ -34,16 +39,20 @@ export const callAPI = async (infos, token, data = {}) => {
   }
 
   try {
+    // Effectue la requête en utilisant l'URL de base et les informations spécifiques à la requête
     const response = await fetch(`${baseURL}${callAPIData.url}`, {
       method: callAPIData.method,
       headers,
       body: JSON.stringify(data),
     });
+
+    // Vérifie si la réponse de la requête est réussie
     if (!response.ok) {
       console.log(response);
       const errorData = await response.json();
       throw new Error(errorData.message);
     }
+
     return await response.json();
   } catch (error) {
     console.error("Erreur lors de la connexion à l'API :", error);
