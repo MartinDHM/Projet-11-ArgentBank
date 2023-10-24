@@ -1,49 +1,62 @@
-// Form.js
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Utilisé pour la navigation
-import { useDispatch } from "react-redux"; // Utilisé pour dispatcher des actions Redux
-import Button from "../Button/Button"; // Composant de bouton
-import { signIn } from "../../Redux/store"; // Action Redux pour la connexion
-import callAPI from "../../Api/callApi"; // Fonction pour effectuer des appels à l'API
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Button from "../Button/Button";
+import { signIn } from "../../Redux/store";
+import callAPI from "../../Api/callApi";
 
 function Form() {
-  // Initialisation de l'état local du composant
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Fonction de navigation
-  const dispatch = useDispatch(); // Fonction Redux pour dispatcher des actions
+  const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Fonction de gestion de la connexion
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
+    const storedRememberMe = localStorage.getItem("rememberMe");
+
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+    if (storedPassword) {
+      setPassword(storedPassword);
+    }
+    if (storedRememberMe === "true") {
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleSignIn = async (e) => {
     e.preventDefault();
 
     try {
-      // Effectue la requête de connexion à l'API et récupère le token
       const response = await callAPI("getToken", null, {
         email: email,
         password: password,
       });
 
-      // Récupère le token à partir de la réponse API
       const token = response.body.token;
-
-      // Calcule la date d'expiration (1 heure plus tard)
       const expirationTime = new Date().getTime() + 60 * 60 * 1000;
 
-      // Stocke le token dans le localStorage pour une utilisation ultérieure
       localStorage.setItem("token", token);
       localStorage.setItem("tokenExpiration", expirationTime);
+      if (rememberMe) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        localStorage.setItem("rememberMe", "true");
+      } else {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+        localStorage.removeItem("rememberMe");
+      }
 
-      // Dispatche l'action signIn avec le token pour l'authentification
       dispatch(signIn(token));
-
-      // Navigue vers la page de profil ou effectue d'autres actions nécessaires
       navigate("/profile");
     } catch (error) {
       console.error("Une erreur s'est produite :", error);
-
-      // Affiche un message d'erreur en cas d'échec de la connexion
       setError("Une erreur s'est produite lors de la connexion.");
     }
   };
@@ -72,7 +85,12 @@ function Form() {
           />
         </div>
         <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
+          <input
+            type="checkbox"
+            id="remember-me"
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+          />
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <Button text="Sign In" className="sign-in-button" type="submit" />
