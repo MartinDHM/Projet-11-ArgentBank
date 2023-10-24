@@ -1,3 +1,4 @@
+// Import des modules nécessaires depuis React et d'autres bibliothèques
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -5,14 +6,17 @@ import Button from "../Button/Button";
 import { signIn } from "../../Redux/store";
 import callAPI from "../../Api/callApi";
 
+// Définition d'un composant de formulaire
 function Form() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // Définition des états pour stocker des données
+  const [email, setEmail] = useState(""); // Email de l'utilisateur
+  const [password, setPassword] = useState(""); // Mot de passe de l'utilisateur
+  const [error, setError] = useState(""); // Message d'erreur
+  const [rememberMe, setRememberMe] = useState(false); // Option "Se souvenir de moi"
+  const navigate = useNavigate(); // Pour la navigation dans l'application
+  const dispatch = useDispatch(); // Pour dispatcher des actions Redux
 
+  // Utilisation de useEffect pour charger des données depuis le stockage local
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     const storedPassword = localStorage.getItem("password");
@@ -29,20 +33,26 @@ function Form() {
     }
   }, []);
 
+  // Gestion de la soumission du formulaire de connexion
   const handleSignIn = async (e) => {
     e.preventDefault();
 
     try {
+      // Appel d'une API pour obtenir un jeton d'authentification
       const response = await callAPI("getToken", null, {
         email: email,
         password: password,
       });
 
+      // Récupération du jeton et de l'heure d'expiration
       const token = response.body.token;
       const expirationTime = new Date().getTime() + 60 * 60 * 1000;
 
+      // Stockage du jeton et de l'heure d'expiration dans le stockage local
       localStorage.setItem("token", token);
       localStorage.setItem("tokenExpiration", expirationTime);
+
+      // Gestion de l'option "Se souvenir de moi"
       if (rememberMe) {
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
@@ -53,7 +63,10 @@ function Form() {
         localStorage.removeItem("rememberMe");
       }
 
+      // Dispatch d'une action Redux pour l'authentification
       dispatch(signIn(token));
+
+      // Redirection vers la page de profil
       navigate("/profile");
     } catch (error) {
       console.error("Une erreur s'est produite :", error);
@@ -61,6 +74,7 @@ function Form() {
     }
   };
 
+  // Rendu du formulaire de connexion
   return (
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
@@ -100,4 +114,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default Form; // Export du composant Form
