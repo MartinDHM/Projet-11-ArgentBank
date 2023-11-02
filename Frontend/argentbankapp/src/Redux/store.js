@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signInSlice from ".//signinSlice";
+import signInSlice from "./signinSlice";
 import userProfileSlice from "./userprofilSlice";
 
 // Configuration du store Redux
